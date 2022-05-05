@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Routes
-app.use(require('../API/src/routes/index'));
+app.use(require('./src/routes/index'));
 
 app.listen(PORT);
 console.log('Server on port', PORT);

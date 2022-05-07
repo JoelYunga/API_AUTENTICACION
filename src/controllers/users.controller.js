@@ -45,8 +45,14 @@ const createUser = async(req, res) => {
         ciudad,
         direccion,
         usuario,
-        password } = req.body;
-    const response = await pool.query('INSERT INTO usuario (id_gen,apellidos,nombres,cedula,edad,nacimiento,email,telefono,ciudad,direccion,usuario,password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)', [genero, apellidos, nombres, cedula, edad, fecha, email, movil, ciudad, direccion, usuario, password]);
+        password ,
+        tipo_autenticar,
+        tipo_letra,
+        resp,
+        letras} = req.body;
+    await pool.query('INSERT INTO usuario (id_gen,apellidos,nombres,cedula,edad,nacimiento,email,telefono,ciudad,direccion,usuario,password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)', [genero, apellidos, nombres, cedula, edad, fecha, email, movil, ciudad, direccion, usuario, password]);
+    await pool.query('INSERT INTO resp (id_tipo_autenticar,respuesta,tipo_letra,letras) VALUES ($1,$2,$3,$4)', [tipo_autenticar,resp,tipo_letra,letras]);
+
 
     res.json({
         message: 'Usuario registrado',

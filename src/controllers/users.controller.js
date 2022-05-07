@@ -5,8 +5,8 @@ const { Pool } = require('pg');
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
-    password: '123456789',
-    database: 'proyecto_auntenticacion',
+    password: '123',
+    database: 'autenticacion',
     port: '5432'
 });
 
@@ -39,20 +39,20 @@ const createUser = async(req, res) => {
         nombres, 
         cedula, 
         edad, 
-        nacimiento,
+        fecha,
         email,
-        telefono,
+        movil,
         ciudad,
         direccion,
         usuario,
         password } = req.body;
-    const response = await pool.query('INSERT INTO usuario (id_gen,apellido,nombres,cedula,edad,nacimiento,email,telefono,ciudad,direccion,usuario,password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)', [genero, apellidos, nombres, cedula, edad, nacimiento, email, telefono, ciudad, direccion, usuario, password]);
+    const response = await pool.query('INSERT INTO usuario (id_gen,apellidos,nombres,cedula,edad,nacimiento,email,telefono,ciudad,direccion,usuario,password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)', [genero, apellidos, nombres, cedula, edad, fecha, email, movil, ciudad, direccion, usuario, password]);
 
     res.json({
         message: 'Usuario registrado',
         estado: true,
         body: {
-            user: { genero, apellidos, nombres, cedula, edad, nacimiento, email, telefono, ciudad, direccion, usuario, password }
+            user: { genero, apellidos, nombres, cedula, edad, fecha, email, movil, ciudad, direccion, usuario, password }
         }
     })
 };

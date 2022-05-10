@@ -7,9 +7,11 @@ const {
     createUser,
     updateUser,
     deleteUser,
+    getData
 } = require('../controllers/users.controller');
 
 router.get('/users', getUsers);
+router.get('/datos/:user', getData);
 router.get('/users/:id', getUserById);
 router.post('/users', createUser);
 router.put('/users/:id', updateUser)

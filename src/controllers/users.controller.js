@@ -91,9 +91,9 @@ const updateUser = async(req, res) => {
 const getData = async(req, res) => {
     let usuario = JSON.parse(req.params.user);
     const data = await pool.query('SELECT * FROM autenticacion WHERE id_usuario = $1', [usuario.id_usuario]);
-    let madre = data.rows[0].madre
-    let mascota = data.rows[0].mascota
-    let fruta = data.rows[0].fruta
+    let madre = data.rows[0].madre.toLowerCase()
+    let mascota = data.rows[0].mascota.toLowerCase()
+    let fruta = data.rows[0].fruta.toLowerCase()
     let vocales,consonantes;
 
     if (data.rows[0].tipo_letra === 'V') {

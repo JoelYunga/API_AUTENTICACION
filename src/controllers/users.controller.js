@@ -98,9 +98,9 @@ const getData = async(req, res) => {
 
     if (data.rows[0].tipo_letra === 'V') {
         vocales = [
-            {nombre:'madre', data: eliminarRepetidos(madre.match(/[aeiou]/gi))},
-            {nombre:'mascota', data: eliminarRepetidos(mascota.match(/[aeiou]/gi))},
-            {nombre:'fruta', data: eliminarRepetidos(fruta.match(/[aeiou]/gi))}
+            {nombre:'madre', data: eliminarRepetidos(madre.match(/[aeiouáéíóú]/gi))},
+            {nombre:'mascota', data: eliminarRepetidos(mascota.match(/[aeiouóáéíóú]/gi))},
+            {nombre:'fruta', data: eliminarRepetidos(fruta.match(/[aeiouóáéíóú]/gi))}
         ]
         console.log(obtenerAleatorio(vocales));
     } else if(data.rows[0].tipo_letra === 'C') {

@@ -130,7 +130,7 @@ const getData = async (req, res) => {
   let mascota = data.rows[0].mascota.toUpperCase();
   let fruta = data.rows[0].fruta.toUpperCase();
   let auth;
-
+  let pista;
   if (data.rows[0].tipo_letra === "V") {
     let vocales = [
       {
@@ -149,6 +149,14 @@ const getData = async (req, res) => {
       },
     ];
     auth = obtenerAleatorio(vocales);
+   
+    if (auth.nombre === 'madre') {
+        pista = 'Vocales Nombre de tu Madre'
+    }else if(auth.nombre === 'mascota'){
+        pista = 'Vocales Nombre de tu Mascota'
+    }else if(auth.nombre === 'fruta'){
+        pista = 'Vocales Nombre de tu Fruta Favorita'
+    }
   } else if (data.rows[0].tipo_letra === "C") {
     let consonantes = [
       {
@@ -165,14 +173,13 @@ const getData = async (req, res) => {
       },
     ];
     auth = obtenerAleatorio(consonantes);
-  }
-  let pista;
-  if (auth.nombre === 'madre') {
-      pista = 'El nombre de tu madre'
-  }else if(auth.nombre === 'mascota'){
-    pista = 'El nombre de tu mascota'
-  }else if(auth.nombre === 'fruta'){
-    pista = 'El nombre de tu fruta favorita'
+    if (auth.nombre === 'madre') {
+        pista = 'Consonantes Nombre de tu Madre'
+    }else if(auth.nombre === 'mascota'){
+        pista = 'Consonantes Nombre de tu Mascota'
+    }else if(auth.nombre === 'fruta'){
+        pista = 'Consonantes Nombre de tu Fruta Favorita'
+    }
   }
   const response = await pool.query("SELECT * FROM data");
   let datos = response.rows;

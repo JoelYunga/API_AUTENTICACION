@@ -10,7 +10,7 @@ const pool = new Pool({
 });
 
 //Conexión a Postgres heroku
-/* process.env.DATABASE_URL = 'postgres://yurmkyxwvuozrr:512fc9b1da40e905cb6219292d72058824f7c34f02166c6f1da4319eb17e3352@ec2-3-222-49-168.compute-1.amazonaws.com:5432/dc4pailb7l1f52';
+/* process.env.DATABASE_URL = 'postgres://rhtkexxqbytywf:0d763829183a64a532490899caf05b141c909e0475c8f399a53c5dab8223587f@ec2-3-229-11-55.compute-1.amazonaws.com:5432/d3sg9gsjam3hc4';
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {

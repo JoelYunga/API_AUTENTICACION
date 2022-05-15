@@ -1,22 +1,22 @@
 const { Pool } = require("pg");
 
 // Conexion local
-const pool = new Pool({
+/* const pool = new Pool({
   user: "postgres",
   host: "localhost",
   password: "123",
   database: "autenticacion",
   port: "5432",
-});
+}); */
 
 //Conexión a Postgres heroku
-/* process.env.DATABASE_URL = 'postgres://rhtkexxqbytywf:0d763829183a64a532490899caf05b141c909e0475c8f399a53c5dab8223587f@ec2-3-229-11-55.compute-1.amazonaws.com:5432/d3sg9gsjam3hc4';
+process.env.DATABASE_URL = 'postgres://rhtkexxqbytywf:0d763829183a64a532490899caf05b141c909e0475c8f399a53c5dab8223587f@ec2-3-229-11-55.compute-1.amazonaws.com:5432/d3sg9gsjam3hc4';
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
     }
-}); */
+});
 
 const getUsers = async (req, res) => {
   const response = await pool.query(

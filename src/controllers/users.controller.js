@@ -149,13 +149,13 @@ const getData = async (req, res) => {
       },
     ];
     auth = obtenerAleatorio(vocales);
-   
-    if (auth.nombre === 'madre') {
-        pista = 'Vocales Nombre de tu Madre'
-    }else if(auth.nombre === 'mascota'){
-        pista = 'Vocales Nombre de tu Mascota'
-    }else if(auth.nombre === 'fruta'){
-        pista = 'Vocales Nombre de tu Fruta Favorita'
+
+    if (auth.nombre === "madre") {
+      pista = "Nombre de tu Madre";
+    } else if (auth.nombre === "mascota") {
+      pista = "Nombre de tu Mascota";
+    } else if (auth.nombre === "fruta") {
+      pista = "Nombre de tu Fruta Favorita";
     }
   } else if (data.rows[0].tipo_letra === "C") {
     let consonantes = [
@@ -173,28 +173,30 @@ const getData = async (req, res) => {
       },
     ];
     auth = obtenerAleatorio(consonantes);
-    if (auth.nombre === 'madre') {
-        pista = 'Consonantes Nombre de tu Madre'
-    }else if(auth.nombre === 'mascota'){
-        pista = 'Consonantes Nombre de tu Mascota'
-    }else if(auth.nombre === 'fruta'){
-        pista = 'Consonantes Nombre de tu Fruta Favorita'
+    if (auth.nombre === "madre") {
+      pista = "Nombre de tu Madre";
+    } else if (auth.nombre === "mascota") {
+      pista = "Nombre de tu Mascota";
+    } else if (auth.nombre === "fruta") {
+      pista = "Nombre de tu Fruta Favorita";
     }
   }
   const response = await pool.query("SELECT * FROM data");
   let datos = response.rows;
+  let a = compararArrays(datos, auth.data);
+  let noElegiblesTotales = eliminarRepetidosArrays2(datos, a);
   let elegibles = extraerDatos(4, compararArrays(datos, auth.data));
   for (const i of elegibles) {
-      i.estado = true
+    i.estado = true;
   }
-  let noElegibles = extraerDatos(5,eliminarRepetidosArrays(datos, elegibles))
+  let noElegibles = extraerDatos(5, eliminarRepetidosArrays(noElegiblesTotales, elegibles));
   for (const i of noElegibles) {
-    i.estado = false
-}
+    i.estado = false;
+  }
   let resultado = elegibles.concat(noElegibles);
-  aleatorizarArray(resultado)
+  aleatorizarArray(resultado);
 
-  res.status(200).json({resultado,pista})
+  res.status(200).json({ resultado, pista });
 };
 
 function eliminarRepetidos(data) {
@@ -203,8 +205,8 @@ function eliminarRepetidos(data) {
   });
   return result;
 }
-function aleatorizarArray(inputArray){
-    inputArray.sort(()=> Math.random() - 0.5);
+function aleatorizarArray(inputArray) {
+  inputArray.sort(() => Math.random() - 0.5);
 }
 function obtenerAleatorio(myArray) {
   var rand = Math.floor(Math.random() * myArray.length);
@@ -225,6 +227,22 @@ function compararArrays(data1, data2) {
     });
   });
   return data3;
+}
+function eliminarRepetidosArrays2(data1, data2) {
+  var array = [];
+  for (var i = 0; i < data1.length; i++) {
+    var igual = false;
+    for (var j = 0; (j < data2.length) & !igual; j++) {
+      if (
+        data1[i]["id"] == data2[j]["id"] &&
+        data1[i]["nombre"] == data2[j]["nombre"]
+      )
+        igual = true;
+    }
+    if (!igual) array.push(data1[i]);
+  }
+  /* console.log(JSON.stringify(array)); */
+  return array
 }
 function eliminarRepetidosArrays() {
   var args = Array.prototype.slice.call(arguments),

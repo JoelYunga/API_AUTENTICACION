@@ -74,6 +74,13 @@ const createUser = async (req, res) => {
     "SELECT id_usuario FROM usuario WHERE cedula = $1",
     [cedula]
   );
+  if (response.rows.length > 1) {
+    res.json({
+      message: "El número de cédula del usuario ya existe",
+      estado: false,
+    })
+    return
+  }
   let idUsuario = response.rows[0].id_usuario;
   await pool.query(
     "INSERT INTO autenticacion (madre,mascota,fruta,tipo_letra,id_usuario) VALUES ($1, $2, $3, $4, $5)",
@@ -122,6 +129,7 @@ const updateUser = async (req, res) => {
 
 const getData = async (req, res) => {
   let usuario = JSON.parse(req.params.user);
+  console.log(usuario)
   const data = await pool.query(
     "SELECT * FROM autenticacion WHERE id_usuario = $1",
     [usuario.id_usuario]

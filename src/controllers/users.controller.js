@@ -57,7 +57,7 @@ const createUser = async (req, res) => {
     "SELECT id_usuario FROM usuario WHERE cedula = $1",
     [cedula]
   );
-  if (responseCedula.rows.length > 1) {
+  if (responseCedula.rows.length > 0) {
     res.json({
       message: "El número de cédula del usuario ya existe",
       estado: false,

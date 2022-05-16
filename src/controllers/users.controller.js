@@ -53,6 +53,17 @@ const createUser = async (req, res) => {
     mascota,
     fruta,
   } = req.body;
+  const responseCedula = await pool.query(
+    "SELECT id_usuario FROM usuario WHERE cedula = $1",
+    [cedula]
+  );
+  if (responseCedula.rows.length > 1) {
+    res.json({
+      message: "El número de cédula del usuario ya existe",
+      estado: false,
+    })
+    return
+  }
   await pool.query(
     "INSERT INTO usuario (id_gen,apellidos,nombres,cedula,edad,nacimiento,email,telefono,ciudad,direccion,usuario,password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)",
     [
@@ -74,13 +85,6 @@ const createUser = async (req, res) => {
     "SELECT id_usuario FROM usuario WHERE cedula = $1",
     [cedula]
   );
-  if (response.rows.length > 1) {
-    res.json({
-      message: "El número de cédula del usuario ya existe",
-      estado: false,
-    })
-    return
-  }
   let idUsuario = response.rows[0].id_usuario;
   await pool.query(
     "INSERT INTO autenticacion (madre,mascota,fruta,tipo_letra,id_usuario) VALUES ($1, $2, $3, $4, $5)",

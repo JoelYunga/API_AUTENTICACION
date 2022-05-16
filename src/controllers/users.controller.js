@@ -186,8 +186,18 @@ const getData = async (req, res) => {
   let a = compararArrays(datos, auth.data);
   let noElegiblesTotales = eliminarRepetidosArrays2(datos, a);
   let elegibles = extraerDatos(4, compararArrays(datos, auth.data));
+  let b=[];
   for (const i of elegibles) {
     i.estado = true;
+    b.push(i.letra)
+  }
+  let posiciones=[]
+  for (let i = 0; i < auth.data.length; i++) {
+    for (let j = 0; j < b.length; j++) {
+      if (b[j] === auth.data[i]) {
+        posiciones.push(i+1)
+      }
+    }
   }
   let noElegibles = extraerDatos(5, eliminarRepetidosArrays(noElegiblesTotales, elegibles));
   for (const i of noElegibles) {
@@ -196,7 +206,7 @@ const getData = async (req, res) => {
   let resultado = elegibles.concat(noElegibles);
   aleatorizarArray(resultado);
 
-  res.status(200).json({ resultado, pista });
+  res.status(200).json({ resultado, pista,posiciones });
 };
 
 function eliminarRepetidos(data) {
